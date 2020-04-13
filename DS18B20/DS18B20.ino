@@ -1,22 +1,26 @@
+/*
+ * Medir temperatura sensor DS18B20
+ * taloselectronics.com
+ * soporte@taloselectronics.com
+ */
 #include <OneWire.h>                
 #include <DallasTemperature.h>
  
-OneWire ourWire(2);                //Se establece el pin 2  como bus OneWire
+OneWire ourWire(2);                //Se establece el pin 2 commo bus de datos
  
-DallasTemperature sensors(&ourWire); //Se declara una variable u objeto para nuestro sensor
+DallasTemperature DS18B20(&ourWire); //Se declara una el objeto tipo DallasTemperature
 
 void setup() {
-delay(1000);
-Serial.begin(9600);
-sensors.begin();   //Se inicia el sensor
+Serial.begin(9600);//Se inicializa el monitor serial a 9600 bps
+DS18B20.begin();   //Se inicia el el sensor DS18b20
 }
  
 void loop() {
-sensors.requestTemperatures();   //Se envía el comando para leer la temperatura
-float temp= sensors.getTempCByIndex(0); //Se obtiene la temperatura en ºC
+DS18B20.requestTemperatures();   //Se envía el comando para leer la temperatura
+float temperatura= DS18B20.getTempCByIndex(0); //Se obtiene la temperatura en ºC
 
 Serial.print("Temperatura= ");
-Serial.print(temp);
+Serial.print(temperatura);
 Serial.println(" C");
-delay(100);                     
+delay(500);                     
 }
